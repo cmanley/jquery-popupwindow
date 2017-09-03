@@ -23,12 +23,33 @@
 
   $.popupWindow = function(url, opts) {
     var options = $.extend({}, defaults, opts);
+    
+    // support deprecated boolean center value
+    if (options.center === true) {
+      options.center = "screen";
+    }
+  
+    // Convert percentage height (e.g. "80%" or "80% of parent" or "80% of screen") into pixel height.
+    if ((typeof(options.height) == 'string') && options.height.match(/^(\d+)%(\s+of\s+(screen|opener|parent|window))?$/)) {
+      var percent = parseInt(RegExp.$1);
+      var of_what = RegExp.$3 ? RegExp.$3 : (options.center ? options.center : 'screen');
+      var of_height = of_what == 'screen' ? screen.height : $(window).height();
+      options.height = Math.round(percent * of_height / 100);
+    }
+  
+    // Convert percentage width (e.g. "80%" or "80% of parent" or "80% of screen") into pixel width.
+    if ((typeof(options.width) == 'string') && options.width.match(/^(\d+)%(\s+of\s+(screen|opener|parent|window))?$/)) {
+      var percent = parseInt(RegExp.$1);
+      var of_what = RegExp.$3 ? RegExp.$3 : (options.center ? options.center : 'screen');
+      var of_width = of_what == 'screen' ? screen.width : $(window).width();
+      options.width = Math.round(percent * of_width / 100);
+    }
 
     // center the window
     if (options.center === "parent") {
       options.top = window.screenY + Math.round(($(window).height() - options.height) / 2);
       options.left = window.screenX + Math.round(($(window).width() - options.width) / 2);
-    } else if (options.center === true || options.center === "screen") {
+    } else if (options.center === "screen") {
       // 50px is a rough estimate for the height of the chrome above the
       // document area
       
