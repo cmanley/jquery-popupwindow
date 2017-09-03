@@ -65,7 +65,7 @@ There are more [examples] to look at as well.
 |--------------|----------|---------|-------|
 | `center`     | string   | `'screen'`| possible values are: `'screen'`,`'parent'`, and `null`. For backwards compatibility `true`/`false` is still supported, but deprecated, and may be removed in a future version |
 | `createNew`  | boolean  | `true`  | open a new window, or re-use existing popup |
-| `height`     | integer  | `500`   |       |
+| `height`     | integer  | `500`   | see `'width'` for syntax notes |
 | `left`       | integer  | `0`     |       |
 | `location`   | boolean  | `false` |       |
 | `menubar`    | boolean  | `false` |       |
@@ -76,7 +76,7 @@ There are more [examples] to look at as well.
 | `status`     | boolean  | `false` |       |
 | `toolbar`    | boolean  | `false` |       |
 | `top`        | integer  | `0`     |       |
-| `width`      | integer  | `500`   |       |
+| `width`      | integer  | `500`   | percentages supported too using syntax `'80% of screen'` or `'80% of parent'` or `'80%'` |
 
 ## Notes
 
